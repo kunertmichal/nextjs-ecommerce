@@ -14,3 +14,9 @@ a {
 * {
   box-sizing: border-box;
 }
+
+body {
+  min-height: 100vh;
+  background: url('../public/gawlik-jest-lysy.webp') no-repeat center;
+  background-size: cover;
+}
