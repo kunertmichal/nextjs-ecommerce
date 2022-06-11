@@ -33,7 +33,7 @@ export const Header = () => {
             isMenuOpened ? "block" : "hidden"
           }`}
         >
-          <ul className="flex flex-col items-center md:flex-row md:items-start">
+          <ul className="flex flex-col items-center space-y-4 md:space-y-0 md:flex-row md:items-start">
             {LINKS.map(({ text, to }) => (
               <li key={text} className="px-4 text-lg">
                 <Link href={to}>{text}</Link>
@@ -41,8 +41,15 @@ export const Header = () => {
             ))}
           </ul>
         </nav>
-        <div className="flex-1 hidden md:flex">
-          <Button variant="tertiary" className="ml-auto mr-3">
+        <div
+          className={`order-3 w-full flex-col md:flex md:flex-1 md:flex-row ${
+            isMenuOpened ? "flex" : "hidden"
+          }`}
+        >
+          <Button
+            variant="tertiary"
+            className="mb-4 md:mb-0 md:ml-auto md:mr-3"
+          >
             Sign in
           </Button>
           <Button variant="primary">Sign up</Button>

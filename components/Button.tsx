@@ -15,7 +15,7 @@ const variants = {
 export const Button = ({ children, variant, className }: Props) => {
   return (
     <button
-      className={`py-2 px-5 rounded duration-300 ${variants[variant]} ${className}`}
+      className={`py-2 px-5 rounded transition-colors duration-300 ${variants[variant]} ${className}`}
     >
       {children}
     </button>
