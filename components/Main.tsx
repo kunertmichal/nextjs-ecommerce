@@ -5,5 +5,9 @@ interface Props {
 }
 
 export const Main = ({ children }: Props) => {
-  return <main className="flex-grow p-5 bg-orange-50">{children}</main>;
+  return (
+    <main className="flex-grow p-5 bg-orange-50">
+      <div className="container mx-auto">{children}</div>
+    </main>
+  );
 };
