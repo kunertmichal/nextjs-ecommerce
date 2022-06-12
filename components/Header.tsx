@@ -49,7 +49,11 @@ export const Header = () => {
             ))}
           </ul>
         </nav>
-        <div className="md:hidden border border-gray-700 border-b-0 w-full mb-4" />
+        <div
+          className={`md:hidden border border-gray-700 border-b-0 w-full mb-4 ${
+            isMenuOpened ? "block" : "hidden"
+          }`}
+        />
         <div
           className={`w-full flex-col md:flex md:flex-1 md:flex-row ${
             isMenuOpened ? "flex" : "hidden"
