@@ -28,8 +28,16 @@ export const Header = () => {
         <div className="flex-1 flex items-center">
           <MainLogo />
         </div>
+        <div className="md:hidden">
+          <button
+            className="p-1 border border-gray-500 rounded"
+            onClick={() => setIsMenuOpened((prevState) => !prevState)}
+          >
+            <MdMenu className="text-2xl" />
+          </button>
+        </div>
         <nav
-          className={`order-3 p-6 w-full md:w-auto md:-order-none md:p-0 md:block ${
+          className={`p-6 w-full md:w-auto md:-order-none md:p-0 md:block ${
             isMenuOpened ? "block" : "hidden"
           }`}
         >
@@ -41,8 +49,9 @@ export const Header = () => {
             ))}
           </ul>
         </nav>
+        <div className="md:hidden border border-gray-700 border-b-0 w-full mb-4" />
         <div
-          className={`order-3 w-full flex-col md:flex md:flex-1 md:flex-row ${
+          className={`w-full flex-col md:flex md:flex-1 md:flex-row ${
             isMenuOpened ? "flex" : "hidden"
           }`}
         >
@@ -53,14 +62,6 @@ export const Header = () => {
             Sign in
           </Button>
           <Button variant="primary">Sign up</Button>
-        </div>
-        <div className="md:hidden">
-          <button
-            className="p-1 border border-gray-500 rounded"
-            onClick={() => setIsMenuOpened((prevState) => !prevState)}
-          >
-            <MdMenu className="text-2xl" />
-          </button>
         </div>
       </div>
     </header>
