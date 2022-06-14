@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MdMenu } from "react-icons/md";
 import { Button } from "./Button";
 import { MainLogo } from "./MainLogo";
+import { NavLink } from "./NavLink";
 
 const LINKS = [
   {
@@ -44,7 +45,7 @@ export const Header = () => {
           <ul className="flex flex-col items-center space-y-4 md:space-y-0 md:flex-row md:items-start">
             {LINKS.map(({ text, to }) => (
               <li key={text} className="px-4 text-lg">
-                <Link href={to}>{text}</Link>
+                <NavLink to={to}>{text}</NavLink>
               </li>
             ))}
           </ul>
