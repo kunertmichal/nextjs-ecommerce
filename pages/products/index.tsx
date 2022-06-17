@@ -22,8 +22,8 @@ const ProductsPage = () => {
   return (
     <Layout>
       <>
-        <h1 className="mb-10 text-4xl font-bold text-gray-800">Our products</h1>
-        <div className="grid grid-cols-4">
+        <h1 className="mb-16 text-4xl font-bold text-gray-800">Our products</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16">
           {data?.map(({ id, title, image, rating, price, category }) => {
             return (
               <ProductCard

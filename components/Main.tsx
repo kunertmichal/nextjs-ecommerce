@@ -6,7 +6,7 @@ interface Props {
 
 export const Main = ({ children }: Props) => {
   return (
-    <main className="flex-grow py-16 p-4 bg-orange-50">
+    <main className="flex-grow py-16 p-4">
       <div className="container mx-auto">{children}</div>
     </main>
   );
