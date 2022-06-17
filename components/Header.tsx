@@ -11,12 +11,8 @@ const LINKS = [
     to: "/",
   },
   {
-    text: "About",
-    to: "/about",
-  },
-  {
-    text: "Users",
-    to: "/users",
+    text: "Products",
+    to: "/products",
   },
 ];
 
