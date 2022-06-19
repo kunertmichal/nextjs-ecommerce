@@ -19,12 +19,18 @@ interface GetAllArgs {
   offset: number;
 }
 
+const API_URL = "https://naszsklep-api.vercel.app/api";
+
 export const productsRepository = {
   getAll: async (params: GetAllArgs | string) => {
-    const response = await axios.get<Product[]>(
-      "https://naszsklep-api.vercel.app/api/products",
-      { params }
-    );
+    const response = await axios.get<Product[]>(`${API_URL}/products`, {
+      params,
+    });
+
+    return response;
+  },
+  getById: async (id: string | string[] | undefined) => {
+    const response = await axios.get<Product>(`${API_URL}/products/${id}`);
 
     return response;
   },

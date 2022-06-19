@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { useQuery } from "react-query";
 import { Layout } from "../../components/Layout";
@@ -36,17 +37,20 @@ const ProductsPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-16">
           {data?.data.map(({ id, title, image, rating, price, category }) => {
             return (
-              <ProductCard
-                key={id}
-                data={{
-                  id,
-                  title,
-                  image,
-                  price,
-                  category,
-                  rating,
-                }}
-              />
+              <Link key={id} href={`/products/${id}`}>
+                <a key={id}>
+                  <ProductCard
+                    data={{
+                      id,
+                      title,
+                      image,
+                      price,
+                      category,
+                      rating,
+                    }}
+                  />
+                </a>
+              </Link>
             );
           })}
         </div>
