@@ -1,14 +1,24 @@
+import React from "react";
 import { useQuery } from "react-query";
 import { Layout } from "../../components/Layout";
+import { Pagination } from "../../components/Pagination";
 import { ProductCard } from "../../components/ProductCard";
-import productsRepository from "../../repositories/products";
+import { productsRepository } from "../../repositories/products";
 
-// https://naszsklep-api.vercel.app/api/products
+const PRODUCTS_PER_PAGE = 25;
 
 const ProductsPage = () => {
+  const [currentPage, setCurrentPage] = React.useState(1);
+
   const { data, isLoading, error } = useQuery(
-    "products",
-    productsRepository.getAll
+    [
+      "products",
+      {
+        take: PRODUCTS_PER_PAGE,
+        offset: PRODUCTS_PER_PAGE * (currentPage - 1),
+      },
+    ],
+    ({ queryKey }) => productsRepository.getAll(queryKey[1])
   );
 
   if (isLoading) {
@@ -23,8 +33,8 @@ const ProductsPage = () => {
     <Layout>
       <>
         <h1 className="mb-16 text-4xl font-bold text-gray-800">Our products</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16">
-          {data?.map(({ id, title, image, rating, price, category }) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-16">
+          {data?.data.map(({ id, title, image, rating, price, category }) => {
             return (
               <ProductCard
                 key={id}
@@ -40,6 +50,14 @@ const ProductsPage = () => {
             );
           })}
         </div>
+        <Pagination
+          totalCount={4000}
+          currentPage={currentPage}
+          pageSize={25}
+          siblingCount={1}
+          onPageChange={setCurrentPage}
+          isDisabled={isLoading}
+        />
       </>
     </Layout>
   );
