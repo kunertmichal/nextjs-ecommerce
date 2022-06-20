@@ -9,7 +9,6 @@ interface Props {
   siblingCount: number;
   currentPage: number;
   pageSize: number;
-  isDisabled: boolean;
 }
 
 export const Pagination = ({

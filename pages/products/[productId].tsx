@@ -3,24 +3,16 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { Layout } from "../../components/Layout";
 import { productsRepository } from "../../repositories/products";
+import {
+  GetStaticPathsResult,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
 
-const ProductPage = () => {
+const ProductPage = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const router = useRouter();
-  const { productId } = router.query;
-
-  const { data, isLoading, error } = useQuery(
-    "singleProduct",
-    () => productsRepository.getById(productId),
-    { enabled: router.isReady }
-  );
-
-  if (isLoading) {
-    return <Layout>Loading...</Layout>;
-  }
-
-  if (!data || error) {
-    <Layout>Unable to fetch products</Layout>;
-  }
 
   return (
     <Layout>
@@ -45,3 +37,36 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
+
+export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
+  const products = await productsRepository.getAll();
+
+  return {
+    paths: products.map((product) => {
+      return {
+        params: {
+          productId: product.id.toString(),
+        },
+      };
+    }),
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({
+  params,
+}: GetStaticPropsContext<{ productId: string }>) => {
+  if (!params?.productId) {
+    return {
+      props: {},
+    };
+  }
+
+  const response = await productsRepository.getById(params.productId);
+
+  return {
+    props: {
+      data: response,
+    },
+  };
+};

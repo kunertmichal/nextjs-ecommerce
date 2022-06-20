@@ -22,10 +22,8 @@ interface GetAllArgs {
 const API_URL = "https://naszsklep-api.vercel.app/api";
 
 export const productsRepository = {
-  getAll: async (params: GetAllArgs | string) => {
-    const response = await axios.get<Product[]>(`${API_URL}/products`, {
-      params,
-    });
+  getAll: async () => {
+    const response = await axios.get<Product[]>(`${API_URL}/products`);
 
     return response.data;
   },

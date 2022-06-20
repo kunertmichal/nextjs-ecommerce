@@ -1,6 +1,6 @@
+import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import React from "react";
-import { useQuery } from "react-query";
 import { Layout } from "../../components/Layout";
 import { Pagination } from "../../components/Pagination";
 import { ProductCard } from "../../components/ProductCard";
@@ -8,27 +8,10 @@ import { productsRepository } from "../../repositories/products";
 
 const PRODUCTS_PER_PAGE = 25;
 
-const ProductsPage = () => {
+const ProductsPage = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [currentPage, setCurrentPage] = React.useState(1);
-
-  const { data, isLoading, error } = useQuery(
-    [
-      "products",
-      {
-        take: PRODUCTS_PER_PAGE,
-        offset: PRODUCTS_PER_PAGE * (currentPage - 1),
-      },
-    ],
-    ({ queryKey }) => productsRepository.getAll(queryKey[1])
-  );
-
-  if (isLoading) {
-    return <Layout>Loading...</Layout>;
-  }
-
-  if (!data || error) {
-    <Layout>Unable to fetch products</Layout>;
-  }
 
   return (
     <Layout>
@@ -60,7 +43,6 @@ const ProductsPage = () => {
           pageSize={25}
           siblingCount={1}
           onPageChange={setCurrentPage}
-          isDisabled={isLoading}
         />
       </>
     </Layout>
@@ -68,3 +50,13 @@ const ProductsPage = () => {
 };
 
 export default ProductsPage;
+
+export const getStaticProps = async () => {
+  const products = await productsRepository.getAll();
+
+  return {
+    props: {
+      data: products,
+    },
+  };
+};
