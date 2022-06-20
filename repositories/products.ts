@@ -27,11 +27,11 @@ export const productsRepository = {
       params,
     });
 
-    return response;
+    return response.data;
   },
   getById: async (id: string | string[] | undefined) => {
     const response = await axios.get<Product>(`${API_URL}/products/${id}`);
 
-    return response;
+    return response.data;
   },
 };

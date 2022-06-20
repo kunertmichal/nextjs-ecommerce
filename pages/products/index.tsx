@@ -35,7 +35,7 @@ const ProductsPage = () => {
       <>
         <h1 className="mb-16 text-4xl font-bold text-gray-800">Our products</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-16">
-          {data?.data.map(({ id, title, image, rating, price, category }) => {
+          {data?.map(({ id, title, image, rating, price, category }) => {
             return (
               <Link key={id} href={`/products/${id}`}>
                 <a key={id}>
