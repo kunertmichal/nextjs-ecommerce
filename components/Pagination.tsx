@@ -4,7 +4,6 @@ import { usePagination, DOTS } from "../hooks/usePagination";
 import { PaginationItem } from "./PaginationItem";
 
 interface Props {
-  onPageChange: (currentPage: number) => void;
   totalCount: number;
   siblingCount: number;
   currentPage: number;
@@ -12,7 +11,6 @@ interface Props {
 }
 
 export const Pagination = ({
-  onPageChange,
   totalCount,
   siblingCount,
   currentPage,
@@ -25,14 +23,6 @@ export const Pagination = ({
     pageSize,
   });
 
-  const onNext = () => {
-    onPageChange(currentPage + 1);
-  };
-
-  const onPrevious = () => {
-    onPageChange(currentPage - 1);
-  };
-
   if (
     currentPage === 0 ||
     (Array.isArray(paginationRange) && paginationRange.length < 2)
@@ -43,12 +33,9 @@ export const Pagination = ({
   return (
     <nav>
       <ul className="flex">
-        <PaginationItem onClick={onPrevious}>
-          <MdKeyboardArrowLeft />
-        </PaginationItem>
         {paginationRange?.map((pageNumber, index) => {
           if (pageNumber === DOTS) {
-            return <PaginationItem key={index}>&#8230;</PaginationItem>;
+            return <PaginationItem key={index}>...</PaginationItem>;
           }
 
           if (typeof pageNumber === "number") {
@@ -56,16 +43,13 @@ export const Pagination = ({
               <PaginationItem
                 key={index}
                 isActive={pageNumber === currentPage}
-                onClick={() => onPageChange(pageNumber)}
+                page={pageNumber}
               >
                 {pageNumber}
               </PaginationItem>
             );
           }
         })}
-        <PaginationItem onClick={onNext}>
-          <MdKeyboardArrowRight />
-        </PaginationItem>
       </ul>
     </nav>
   );

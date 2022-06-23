@@ -12,7 +12,7 @@ const LINKS = [
   },
   {
     text: "Products",
-    to: "/products",
+    to: "/products/page/1",
   },
 ];
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 import { Layout } from "../../components/Layout";
 import { productsRepository } from "../../repositories/products";
 import {
@@ -12,8 +11,6 @@ import {
 const ProductPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const router = useRouter();
-
   return (
     <Layout>
       <div className="md:columns-2 gap-16">
@@ -39,7 +36,7 @@ const ProductPage = ({
 export default ProductPage;
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
-  const products = await productsRepository.getAll();
+  const products = await productsRepository.getAll(25, 0);
 
   return {
     paths: products.map((product) => {
@@ -49,7 +46,7 @@ export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
         },
       };
     }),
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
