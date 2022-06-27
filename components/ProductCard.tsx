@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface Props {
   data: {
     id: number;
@@ -14,8 +16,17 @@ interface Props {
 
 export const ProductCard = ({ data }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center shadow-md rounded-lg p-8">
-      <img src={data.image} alt={data.title} className="max-h-64" />
+    <div className="shadow-md rounded-lg p-8">
+      <div>
+        <Image
+          src={data.image}
+          alt={data.title}
+          layout="responsive"
+          width={16}
+          height={9}
+          objectFit="contain"
+        />
+      </div>
       <h2 className="text-xl font-semibold mt-12">{data.title}</h2>
       <p className="text-gray-400">{data.category}</p>
       <div className="flex mt-4">

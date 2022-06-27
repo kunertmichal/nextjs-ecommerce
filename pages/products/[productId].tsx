@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Image from "next/image";
 import { Layout } from "../../components/Layout";
 import { productsRepository } from "../../repositories/products";
 import {
@@ -11,11 +11,22 @@ import {
 const ProductPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  if (!data) {
+    return <Layout>Unable to fetch data for this product</Layout>;
+  }
+
   return (
     <Layout>
       <div className="md:columns-2 gap-16">
         <div className="mx-auto mb-16 max-w-xs md:max-w-none">
-          <img src={data?.image} alt={data?.title} />
+          <Image
+            src={data.image}
+            alt={data.title}
+            layout="responsive"
+            width="100%"
+            height="100%"
+            objectFit="contain"
+          />
         </div>
         <div>
           <h1 className="text-4xl font-bold text-gray-800">{data?.title}</h1>
