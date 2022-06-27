@@ -9,7 +9,7 @@ interface Props {
 
 export const NavLink = ({ to, children }: Props) => {
   const router = useRouter();
-  const isSelected = router.pathname === to;
+  const isSelected = router.asPath === to;
 
   return (
     <Link href={to}>
