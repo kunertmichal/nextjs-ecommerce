@@ -8,8 +8,6 @@ export interface Product {
   category: string;
   image: string;
   longDescription: string;
-  thumbnailUrl: string;
-  thumbnailAlt: string;
   rating: {
     rate: number;
     count: number;
@@ -26,6 +24,8 @@ export const productsRepository = {
         offset,
       },
     });
+
+    console.log(response.data);
 
     return response.data;
   },

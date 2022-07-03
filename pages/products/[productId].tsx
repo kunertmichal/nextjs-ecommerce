@@ -28,8 +28,8 @@ const ProductPage = ({
           description: data.description,
           images: [
             {
-              url: data.thumbnailUrl,
-              alt: data.thumbnailAlt,
+              url: data.image,
+              alt: data.title,
               type: "image/jpeg",
             },
           ],
