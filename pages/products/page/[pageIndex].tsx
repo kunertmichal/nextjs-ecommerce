@@ -2,7 +2,6 @@ import React from "react";
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import { productsRepository } from "../../../repositories/products";
-import { Layout } from "../../../components/Layout";
 import { ProductCard } from "../../../components/ProductCard";
 import { Pagination } from "../../../components/Pagination";
 
@@ -14,7 +13,7 @@ const ProductsPerPage = ({
   allProductsNumb,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
-    <Layout>
+    <div>
       <h1 className="mb-16 text-4xl font-bold text-gray-800">Our products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 mb-16">
         {products?.map(({ id, title, image, rating, price, category }) => {
@@ -42,7 +41,7 @@ const ProductsPerPage = ({
         pageSize={PRODUCTS_PER_PAGE}
         siblingCount={1}
       />
-    </Layout>
+    </div>
   );
 };
 

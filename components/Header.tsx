@@ -13,6 +13,7 @@ const LINKS = [
   {
     text: "Products",
     to: "/products/page/1",
+    pattern: "/products/",
   },
 ];
 
@@ -39,9 +40,11 @@ export const Header = () => {
           }`}
         >
           <ul className="flex flex-col items-center space-y-4 md:space-y-0 md:flex-row md:items-start">
-            {LINKS.map(({ text, to }) => (
+            {LINKS.map(({ text, to, pattern }) => (
               <li key={text} className="px-4 text-lg">
-                <NavLink to={to}>{text}</NavLink>
+                <NavLink to={to} isActivePattern={pattern}>
+                  {text}
+                </NavLink>
               </li>
             ))}
           </ul>

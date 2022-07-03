@@ -1,46 +1,69 @@
 import React from "react";
 import Image from "next/image";
-import { Layout } from "../../components/Layout";
 import { productsRepository } from "../../repositories/products";
 import {
   GetStaticPathsResult,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+import { NextSeo } from "next-seo";
+import ReactMarkdown from "react-markdown";
 
 const ProductPage = ({
   data,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!data) {
-    return <Layout>Unable to fetch data for this product</Layout>;
+    return <div>Unable to fetch data for this product</div>;
   }
 
   return (
-    <Layout>
-      <div className="md:columns-2 gap-16">
-        <div className="mx-auto mb-16 max-w-xs md:max-w-none">
+    <>
+      <NextSeo
+        title={data.title}
+        description={data.description}
+        canonical={`https://naszsklep.vercel.app/products/${data.id}`}
+        openGraph={{
+          url: `https://naszsklep.vercel.app/products/${data.id}`,
+          title: data.title,
+          description: data.description,
+          images: [
+            {
+              url: data.thumbnailUrl,
+              alt: data.thumbnailAlt,
+              type: "image/jpeg",
+            },
+          ],
+          site_name: "Kunert Shop",
+        }}
+      />
+      <div className="lg:flex gap-16">
+        <div className="mx-auto w-full mb-16 max-w-xs lg:max-w-none">
           <Image
             src={data.image}
             alt={data.title}
             layout="responsive"
-            width="100%"
-            height="100%"
+            width={500}
+            height={500}
+            max-width="800px"
             objectFit="contain"
           />
         </div>
         <div>
-          <h1 className="text-4xl font-bold text-gray-800">{data?.title}</h1>
-          <p className="text-gray-400 text-xl">{data?.category}</p>
+          <h1 className="text-4xl font-bold text-gray-800">{data.title}</h1>
+          <p className="text-gray-400 text-xl">{data.category}</p>
           <div className="flex text-xl my-8">
-            <div className="font-bold mr-9">{data?.price}$</div>
+            <div className="font-bold mr-9">{data.price}$</div>
             <div>
-              {data?.rating.rate} / {data?.rating.count}
+              {data.rating.rate} / {data.rating.count}
             </div>
           </div>
-          <p>{data?.longDescription}</p>
+          <p>{data.description}</p>
+          <article className="prose-lg mt-10">
+            <ReactMarkdown>{data.longDescription}</ReactMarkdown>
+          </article>
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 
