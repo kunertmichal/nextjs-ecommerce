@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export interface Product {
+export interface Response {
   id: number;
   title: string;
   price: string;
@@ -18,7 +18,7 @@ const API_URL = "https://naszsklep-api.vercel.app/api";
 
 export const productsRepository = {
   getAll: async (take = 25, offset = 0) => {
-    const response = await axios.get<Product[]>(`${API_URL}/products`, {
+    const response = await axios.get<Response[]>(`${API_URL}/products`, {
       params: {
         take,
         offset,
@@ -30,7 +30,7 @@ export const productsRepository = {
     return response.data;
   },
   getById: async (id: string | string[] | undefined) => {
-    const response = await axios.get<Product>(`${API_URL}/products/${id}`);
+    const response = await axios.get<Response>(`${API_URL}/products/${id}`);
 
     return response.data;
   },

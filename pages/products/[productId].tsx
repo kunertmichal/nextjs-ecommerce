@@ -1,13 +1,15 @@
 import React from "react";
 import Image from "next/image";
-import { productsRepository } from "../../repositories/products";
+import { MDXRemote } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
 import {
   GetStaticPathsResult,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
 import { NextSeo } from "next-seo";
-import ReactMarkdown from "react-markdown";
+import { productsRepository } from "../../repositories/products";
+import { AppReactMarkdown } from "../../components/AppReactMarkdown";
 
 const ProductPage = ({
   data,
@@ -59,7 +61,7 @@ const ProductPage = ({
           </div>
           <p>{data.description}</p>
           <article className="prose-lg mt-10">
-            <ReactMarkdown>{data.longDescription}</ReactMarkdown>
+            <AppReactMarkdown>{data.longDescription}</AppReactMarkdown>
           </article>
         </div>
       </div>
@@ -90,14 +92,25 @@ export const getStaticProps = async ({
   if (!params?.productId) {
     return {
       props: {},
+      notFound: true,
     };
   }
 
-  const response = await productsRepository.getById(params.productId);
+  const product = await productsRepository.getById(params.productId);
+
+  if (!product) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      data: response,
+      data: {
+        ...product,
+        longDescription: await serialize(product.longDescription),
+      },
     },
   };
 };
