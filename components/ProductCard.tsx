@@ -16,7 +16,7 @@ interface Props {
 
 export const ProductCard = ({ data }: Props) => {
   return (
-    <div className="shadow-md rounded-lg p-8">
+    <div className="shadow-md rounded-lg p-8 text-center">
       <div>
         <Image
           src={data.image}
@@ -29,13 +29,7 @@ export const ProductCard = ({ data }: Props) => {
       </div>
       <h2 className="text-xl font-semibold mt-12">{data.title}</h2>
       <p className="text-gray-400">{data.category}</p>
-      <div className="flex mt-4">
-        <p className="font-bold mr-9">{data.price}$</p>
-        <p className="text-gray-400">
-          <span>{data.rating.rate}</span> / <span>5</span> ({data.rating.count}{" "}
-          reviews)
-        </p>
-      </div>
+      <p className="font-bold mt-4">{data.price}$</p>
     </div>
   );
 };

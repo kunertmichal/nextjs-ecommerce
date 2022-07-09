@@ -20,7 +20,7 @@ export const NavLink = ({ to, children, isActivePattern }: Props) => {
 
   return (
     <Link href={to}>
-      <a className={isSelected ? "text-white" : "text-gray-400"}>{children}</a>
+      <a className={isSelected ? "text-black" : "text-gray-400"}>{children}</a>
     </Link>
   );
 };

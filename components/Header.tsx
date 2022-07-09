@@ -1,6 +1,5 @@
 import React from "react";
-import Link from "next/link";
-import { MdMenu } from "react-icons/md";
+import { MdMenu, MdShoppingCart, MdManageAccounts } from "react-icons/md";
 import { Button } from "./Button";
 import { MainLogo } from "./MainLogo";
 import { NavLink } from "./NavLink";
@@ -11,7 +10,7 @@ const LINKS = [
     to: "/",
   },
   {
-    text: "Products",
+    text: "All products",
     to: "/products/page/1",
     pattern: "/products/",
   },
@@ -21,10 +20,10 @@ export const Header = () => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
 
   return (
-    <header className="border-b-2 border-gray-100 bg-gray-800 text-white py-6 px-4">
+    <header className="py-5 px-4 border border-gray-200 shadow-md">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <div className="flex-1 flex items-center">
-          <MainLogo />
+          <MainLogo color="text-black" />
         </div>
         <div className="md:hidden">
           <button
@@ -55,17 +54,16 @@ export const Header = () => {
           }`}
         />
         <div
-          className={`w-full flex-col md:flex md:flex-1 md:flex-row ${
+          className={`w-full justify-center md:flex md:flex-1 md:flex-row ${
             isMenuOpened ? "flex" : "hidden"
           }`}
         >
-          <Button
-            variant="tertiary"
-            className="mb-4 md:mb-0 md:ml-auto md:mr-3"
-          >
-            Sign in
+          <Button size="square" icon className="md:ml-auto mr-3">
+            <MdShoppingCart />
           </Button>
-          <Button variant="primary">Sign up</Button>
+          <Button size="square" icon>
+            <MdManageAccounts />
+          </Button>
         </div>
       </div>
     </header>
