@@ -1,8 +1,10 @@
 import React from "react";
-import { MdMenu, MdShoppingCart, MdManageAccounts } from "react-icons/md";
+import { MdMenu, MdManageAccounts } from "react-icons/md";
 import { Button } from "./Button";
 import { MainLogo } from "./MainLogo";
 import { NavLink } from "./NavLink";
+import { CartButton } from "./CartButton";
+import { Searchbar } from "./Searchbar";
 
 const LINKS = [
   {
@@ -20,10 +22,10 @@ export const Header = () => {
   const [isMenuOpened, setIsMenuOpened] = React.useState(false);
 
   return (
-    <header className="py-5 px-4 border border-gray-200 shadow-md">
-      <div className="container flex flex-wrap items-center justify-between mx-auto">
+    <header className="py-4 px-4 border border-gray-200 bg-white shadow-md fixed w-full z-50">
+      <div className="flex flex-wrap items-center justify-between mx-auto">
         <div className="flex-1 flex items-center">
-          <MainLogo color="text-black" />
+          <MainLogo />
         </div>
         <div className="md:hidden">
           <button
@@ -34,7 +36,7 @@ export const Header = () => {
           </button>
         </div>
         <nav
-          className={`p-6 w-full md:w-auto md:-order-none md:p-0 md:block ${
+          className={`p-6 w-full md:w-auto md:p-0 md:block ${
             isMenuOpened ? "block" : "hidden"
           }`}
         >
@@ -54,13 +56,12 @@ export const Header = () => {
           }`}
         />
         <div
-          className={`w-full justify-center md:flex md:flex-1 md:flex-row ${
+          className={`w-full justify-center md:justify-end md:flex md:flex-1 md:flex-row ${
             isMenuOpened ? "flex" : "hidden"
           }`}
         >
-          <Button size="square" icon className="md:ml-auto mr-3">
-            <MdShoppingCart />
-          </Button>
+          <Searchbar className="mr-4" />
+          <CartButton />
           <Button size="square" icon>
             <MdManageAccounts />
           </Button>

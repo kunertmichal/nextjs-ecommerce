@@ -3,7 +3,7 @@ import axios from "axios";
 export interface Response {
   id: number;
   title: string;
-  price: string;
+  price: number;
   description: string;
   category: string;
   image: string;
@@ -24,8 +24,6 @@ export const productsRepository = {
         offset,
       },
     });
-
-    console.log(response.data);
 
     return response.data;
   },

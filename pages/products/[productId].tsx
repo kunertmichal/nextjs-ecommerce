@@ -38,8 +38,8 @@ const ProductPage = ({
           site_name: "Kunert Shop",
         }}
       />
-      <div className="lg:flex gap-16">
-        <div className="mx-auto w-full mb-16 max-w-xs lg:max-w-none">
+      <div className="lg:flex gap-16 py-16 container mx-auto">
+        <div className="mx-auto w-full mb-16 max-w-xs lg:max-w-none flex-1">
           <Image
             src={data.image}
             alt={data.title}
@@ -50,7 +50,7 @@ const ProductPage = ({
             objectFit="contain"
           />
         </div>
-        <div>
+        <div className="flex-1">
           <h1 className="text-4xl font-bold text-gray-800">{data.title}</h1>
           <p className="text-gray-400 text-xl">{data.category}</p>
           <div className="flex text-xl my-8">

@@ -6,6 +6,7 @@ interface Props {
   size?: "square" | "md";
   icon?: boolean;
   className?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const variants = {
@@ -19,14 +20,22 @@ const sizes = {
   md: "px-5",
 };
 
-export const Button = ({ children, variant, size, icon, className }: Props) => {
+export const Button = ({
+  children,
+  variant,
+  size,
+  icon,
+  className,
+  onClick,
+}: Props) => {
   const variantClass = variant ? variants[variant] : variants.primary;
-  const sizeClass = size ? sizes[size] : "";
+  const sizeClass = size ? sizes[size] : sizes.md;
   const iconClass = icon ? "inline-flex items-center justify-center" : "";
 
   return (
     <button
       className={`h-10 rounded transition-colors duration-300 ${variantClass} ${sizeClass} ${iconClass} ${className}`}
+      onClick={onClick}
     >
       {children}
     </button>
