@@ -60,11 +60,13 @@ export const Header = () => {
             isMenuOpened ? "flex" : "hidden"
           }`}
         >
-          <Searchbar className="mr-4" />
-          <CartButton />
-          <Button size="square" icon>
-            <MdManageAccounts />
-          </Button>
+          <Searchbar className="mr-4 flex-shrink" />
+          <div className="flex-shrink-0">
+            <CartButton />
+            <Button size="square" icon>
+              <MdManageAccounts />
+            </Button>
+          </div>
         </div>
       </div>
     </header>

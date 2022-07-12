@@ -66,7 +66,7 @@ export const ProductCard = ({ data }: Props) => {
       <h2 className="text-xl font-semibold mt-8">{data.title}</h2>
       <p className="text-gray-400">{data.category}</p>
       <div className="flex w-full justify-center my-6">
-        <p className="font-bold text-lg">{data.price}$</p>
+        <p className="font-bold text-lg">{data.price * quantity}$</p>
         <div className="flex items-center ml-4">
           <button onClick={(e) => decreaseQuantity(e)}>
             <MdRemoveCircleOutline className="text-2xl" />
