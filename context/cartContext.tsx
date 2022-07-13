@@ -12,26 +12,57 @@ interface CartState {
   readonly items: CartItem[];
   readonly addItemToCart: (item: CartItem) => void;
   readonly removeItemFromCart: (id: CartItem["id"]) => void;
-  increaseProductQuantity: (id: CartItem["id"]) => void;
-  decreaseProductQuantity: (id: CartItem["id"]) => void;
+  readonly increaseProductQuantity: (id: CartItem["id"]) => void;
+  readonly decreaseProductQuantity: (id: CartItem["id"]) => void;
 }
 
 export const CartStateContext = createContext<CartState | null>(null);
+
+function getItemsFromStorage() {
+  const itemsFromLocalStorage = localStorage.getItem("MIKEBIKE_SHOPPING_CART");
+
+  if (!itemsFromLocalStorage) return [];
+
+  try {
+    return JSON.parse(itemsFromLocalStorage);
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+
+function setItemsInStorage(cartItems: CartItem[]) {
+  localStorage.setItem("MIKEBIKE_SHOPPING_CART", JSON.stringify(cartItems));
+}
 
 export const CartStateContextProvider = ({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = React.useState<CartItem[] | undefined>(
+    undefined
+  );
+
+  React.useEffect(() => {
+    setCartItems(getItemsFromStorage());
+  }, []);
+
+  React.useEffect(() => {
+    if (cartItems === undefined) {
+      return;
+    }
+
+    setItemsInStorage(cartItems);
+  }, [cartItems]);
 
   return (
     <CartStateContext.Provider
       value={{
-        items: cartItems,
+        items: cartItems || [],
         addItemToCart: (newItem) => {
-          setCartItems((prevState) => {
-            const found = cartItems.find(
+          setCartItems((prevState = []) => {
+            const found = cartItems?.find(
               (existingItem) => existingItem.id === newItem.id
             );
 
@@ -55,12 +86,12 @@ export const CartStateContextProvider = ({
           if (!id) return;
 
           setCartItems((prevState) => {
-            return prevState.filter((item) => item.id !== id);
+            return prevState?.filter((item) => item.id !== id);
           });
         },
         increaseProductQuantity: (id) => {
           setCartItems((prevState) => {
-            return prevState.map((item) => {
+            return prevState?.map((item) => {
               if (item.id === id) {
                 return {
                   ...item,
@@ -73,7 +104,7 @@ export const CartStateContextProvider = ({
           });
         },
         decreaseProductQuantity: (id) => {
-          setCartItems((prevState) => {
+          setCartItems((prevState = []) => {
             const existingItem = prevState.find((item) => item.id === id);
 
             if (existingItem && existingItem.quantity === 1) {
