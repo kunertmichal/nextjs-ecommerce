@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { MdShoppingCart } from "react-icons/md";
-import { useCartState } from "../context/cartContext";
+import { useCartState } from "../hooks/useCartState";
 import { Button } from "./Button";
 
 export const CartButton = () => {

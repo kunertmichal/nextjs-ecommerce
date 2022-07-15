@@ -1,39 +1,12 @@
-import React, { createContext, ReactNode, useContext } from "react";
-
-interface CartItem {
-  readonly id: number;
-  readonly price: number;
-  readonly title: string;
-  readonly image: string;
-  readonly quantity: number;
-}
-
-interface CartState {
-  readonly items: CartItem[];
-  readonly addItemToCart: (item: CartItem) => void;
-  readonly removeItemFromCart: (id: CartItem["id"]) => void;
-  readonly increaseProductQuantity: (id: CartItem["id"]) => void;
-  readonly decreaseProductQuantity: (id: CartItem["id"]) => void;
-}
+import React, { createContext, ReactNode } from "react";
+import {
+  CartState,
+  CartItem,
+  getItemsFromStorage,
+  setItemsInStorage,
+} from "../repositories/cart";
 
 export const CartStateContext = createContext<CartState | null>(null);
-
-function getItemsFromStorage() {
-  const itemsFromLocalStorage = localStorage.getItem("MIKEBIKE_SHOPPING_CART");
-
-  if (!itemsFromLocalStorage) return [];
-
-  try {
-    return JSON.parse(itemsFromLocalStorage);
-  } catch (err) {
-    console.error(err);
-    return [];
-  }
-}
-
-function setItemsInStorage(cartItems: CartItem[]) {
-  localStorage.setItem("MIKEBIKE_SHOPPING_CART", JSON.stringify(cartItems));
-}
 
 export const CartStateContextProvider = ({
   children,
@@ -128,14 +101,4 @@ export const CartStateContextProvider = ({
       {children}
     </CartStateContext.Provider>
   );
-};
-
-export const useCartState = () => {
-  const cartState = useContext(CartStateContext);
-
-  if (!cartState) {
-    throw new Error("You forgot to use CartStateContextProvider!");
-  }
-
-  return cartState;
 };

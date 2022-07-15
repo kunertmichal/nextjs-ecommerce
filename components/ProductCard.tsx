@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { MdAddCircleOutline, MdRemoveCircleOutline } from "react-icons/md";
-import { useCartState } from "../context/cartContext";
+import { useCartState } from "../hooks/useCartState";
 import { Button } from "./Button";
 
 interface Props {
