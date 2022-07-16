@@ -52,7 +52,7 @@ export const ProductCard = ({ data }: Props) => {
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg p-8 text-center">
+    <div className="border border-gray-200 rounded-lg p-8">
       <div>
         <Image
           src={data.image}
@@ -63,7 +63,50 @@ export const ProductCard = ({ data }: Props) => {
           objectFit="contain"
         />
       </div>
-      <h2 className="text-xl font-semibold mt-8">{data.title}</h2>
+
+      <div className="mt-2 space-y-3">
+        <p className="text-xs text-gray-500">Space Grey</p>
+
+        <div className="flex space-x-1">
+          <button type="button">
+            <span className="sr-only"> Space Grey </span>
+
+            <span className="block rounded-full w-4 h-4 bg-[#595759]"> </span>
+          </button>
+
+          <button type="button">
+            <span className="sr-only"> Silver </span>
+
+            <span className="block rounded-full w-4 h-4 bg-[#d2d3d4]"> </span>
+          </button>
+
+          <button type="button">
+            <span className="sr-only"> Pink </span>
+
+            <span className="block rounded-full w-4 h-4 bg-[#d89f97]"></span>
+          </button>
+
+          <button type="button">
+            <span className="sr-only"> Green </span>
+
+            <span className="block rounded-full w-4 h-4 bg-[#afbfab]"> </span>
+          </button>
+
+          <button type="button">
+            <span className="sr-only"> Sky Blue </span>
+
+            <span className="block rounded-full w-4 h-4 bg-[#91a5bb]"> </span>
+          </button>
+        </div>
+
+        <div className="flex justify-between text-xs">
+          <p> Small Headphones </p>
+
+          <p> $299 </p>
+        </div>
+      </div>
+
+      {/* <h2 className="text-xl font-semibold mt-8">{data.title}</h2>
       <p className="text-gray-400">{data.category}</p>
       <div className="flex w-full justify-center my-6">
         <p className="font-bold text-lg">{data.price * quantity}$</p>
@@ -77,7 +120,7 @@ export const ProductCard = ({ data }: Props) => {
           </button>
         </div>
       </div>
-      <Button onClick={(e) => handleAddToCart(e)}>Add to cart</Button>
+      <Button onClick={(e) => handleAddToCart(e)}>Add to cart</Button> */}
     </div>
   );
 };
