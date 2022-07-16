@@ -23,7 +23,7 @@ const ProductsPerPage = ({
       </div>
       <div className="sm:ml-64 pl-8 py-16">
         <h1 className="mb-16 text-4xl font-bold text-gray-800">Our products</h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
           {products?.map(({ id, title, image, rating, price, category }) => {
             return (
               <Link key={id} href={`/products/${id}`}>
