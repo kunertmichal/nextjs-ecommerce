@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 interface Props {
   children: ReactNode;
   variant?: "primary" | "secondary" | "tertiary";
-  size?: "square" | "md";
+  size?: "square" | "md" | "full";
   icon?: boolean;
   className?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -12,12 +12,13 @@ interface Props {
 const variants = {
   primary: "bg-teal-500 text-white",
   secondary: "bg-gray-100 text-black",
-  tertiary: "hover:bg-gray-50 hover:text-black",
+  tertiary: "bg-gray-100",
 };
 
 const sizes = {
   square: "w-10",
   md: "px-5",
+  full: "w-full",
 };
 
 export const Button = ({
