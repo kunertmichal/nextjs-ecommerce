@@ -1,15 +1,19 @@
 import React from "react";
 import Image from "next/image";
-import { MDXRemote } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
 import {
   GetStaticPathsResult,
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
 import { NextSeo } from "next-seo";
-import { productsRepository } from "../../repositories/products";
-import { AppReactMarkdown } from "../../components/AppReactMarkdown";
+import { gql } from "@apollo/client";
+import {
+  GetProductBySlugDocument,
+  GetProductBySlugQuery,
+  GetProductsSlugsDocument,
+  GetProductsSlugsQuery,
+} from "../../generated/graphql";
+import { apolloClient } from "../../graphql/apolloClient";
 
 const ProductPage = ({
   data,
@@ -21,17 +25,17 @@ const ProductPage = ({
   return (
     <>
       <NextSeo
-        title={data.title}
+        title={data.name}
         description={data.description}
         canonical={`https://naszsklep.vercel.app/products/${data.id}`}
         openGraph={{
           url: `https://naszsklep.vercel.app/products/${data.id}`,
-          title: data.title,
+          title: data.name,
           description: data.description,
           images: [
             {
-              url: data.image,
-              alt: data.title,
+              url: data.images[0].url,
+              alt: data.name,
               type: "image/jpeg",
             },
           ],
@@ -41,8 +45,8 @@ const ProductPage = ({
       <div className="lg:flex gap-16 py-16 container mx-auto">
         <div className="mx-auto w-full mb-16 max-w-xs lg:max-w-none flex-1">
           <Image
-            src={data.image}
-            alt={data.title}
+            src={data.images[0].url}
+            alt={data.name}
             layout="responsive"
             width={500}
             height={500}
@@ -51,18 +55,12 @@ const ProductPage = ({
           />
         </div>
         <div className="flex-1">
-          <h1 className="text-4xl font-bold text-gray-800">{data.title}</h1>
-          <p className="text-gray-400 text-xl">{data.category}</p>
+          <h1 className="text-4xl font-bold text-gray-800">{data.name}</h1>
+          <p className="text-gray-400 text-xl">Category</p>
           <div className="flex text-xl my-8">
             <div className="font-bold mr-9">{data.price}$</div>
-            <div>
-              {data.rating.rate} / {data.rating.count}
-            </div>
           </div>
           <p>{data.description}</p>
-          <article className="prose-lg mt-10">
-            <AppReactMarkdown>{data.longDescription}</AppReactMarkdown>
-          </article>
         </div>
       </div>
     </>
@@ -72,13 +70,15 @@ const ProductPage = ({
 export default ProductPage;
 
 export const getStaticPaths = async (): Promise<GetStaticPathsResult> => {
-  const products = await productsRepository.getAll(25, 0);
+  const { data } = await apolloClient.query<GetProductsSlugsQuery>({
+    query: GetProductsSlugsDocument,
+  });
 
   return {
-    paths: products.map((product) => {
+    paths: data.products.map((product) => {
       return {
         params: {
-          productId: product.id.toString(),
+          productId: product.slug,
         },
       };
     }),
@@ -96,9 +96,14 @@ export const getStaticProps = async ({
     };
   }
 
-  const product = await productsRepository.getById(params.productId);
+  const { data } = await apolloClient.query<GetProductBySlugQuery>({
+    variables: {
+      slug: params.productId,
+    },
+    query: GetProductBySlugDocument,
+  });
 
-  if (!product) {
+  if (!data || !data.product) {
     return {
       props: {},
       notFound: true,
@@ -108,8 +113,7 @@ export const getStaticProps = async ({
   return {
     props: {
       data: {
-        ...product,
-        longDescription: await serialize(product.longDescription),
+        ...data.product,
       },
     },
   };

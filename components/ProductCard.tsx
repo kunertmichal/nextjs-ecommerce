@@ -6,15 +6,10 @@ import { Button } from "./Button";
 
 interface Props {
   data: {
-    id: number;
+    id: string;
     image: string;
-    title: string;
+    name: string;
     price: number;
-    category: string;
-    rating: {
-      rate: number;
-      count: number;
-    };
   };
 }
 
@@ -26,7 +21,7 @@ export const ProductCard = ({ data }: Props) => {
 
     addItemToCart({
       id: data.id,
-      title: data.title,
+      name: data.name,
       price: data.price,
       image: data.image,
       quantity: 1,
@@ -43,7 +38,7 @@ export const ProductCard = ({ data }: Props) => {
       <div>
         <Image
           src={data.image}
-          alt={data.title}
+          alt={data.name}
           layout="responsive"
           width={16}
           height={9}
