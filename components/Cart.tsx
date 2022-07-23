@@ -14,19 +14,19 @@ export const Cart = () => {
         <th></th>
       </tr>
       {cartState.items.map((product) => (
-        <tr key={product.title}>
+        <tr key={product.name}>
           <td>
             <div className="flex items-center py-2">
               <Image
                 src={product.image}
-                alt={product.title}
+                alt={product.name}
                 layout="fixed"
                 objectFit="contain"
                 width="64px"
                 height="64px"
                 max-width="40px"
               />
-              <div className="ml-2">{product.title}</div>
+              <div className="ml-2">{product.name}</div>
             </div>
           </td>
           <td className="text-right">
