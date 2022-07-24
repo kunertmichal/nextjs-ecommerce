@@ -6,7 +6,6 @@ import {
   InferGetStaticPropsType,
 } from "next";
 import { NextSeo } from "next-seo";
-import { gql } from "@apollo/client";
 import {
   GetProductBySlugDocument,
   GetProductBySlugQuery,
@@ -27,9 +26,9 @@ const ProductPage = ({
       <NextSeo
         title={data.name}
         description={data.description}
-        canonical={`https://naszsklep.vercel.app/products/${data.id}`}
+        canonical={`https://naszsklep.vercel.app/products/${data.slug}`}
         openGraph={{
-          url: `https://naszsklep.vercel.app/products/${data.id}`,
+          url: `https://naszsklep.vercel.app/products/${data.slug}`,
           title: data.name,
           description: data.description,
           images: [
