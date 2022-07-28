@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
+  type?: "button" | "reset" | "submit";
   variant?: "primary" | "secondary" | "tertiary";
   size?: "square" | "md" | "full";
   icon?: boolean;
@@ -28,6 +29,7 @@ export const Button = ({
   icon,
   className,
   onClick,
+  type,
 }: Props) => {
   const variantClass = variant ? variants[variant] : variants.primary;
   const sizeClass = size ? sizes[size] : sizes.md;
@@ -36,6 +38,7 @@ export const Button = ({
   return (
     <button
       className={`h-10 rounded transition-colors duration-300 ${variantClass} ${sizeClass} ${iconClass} ${className}`}
+      type={type ? type : "button"}
       onClick={onClick}
     >
       {children}

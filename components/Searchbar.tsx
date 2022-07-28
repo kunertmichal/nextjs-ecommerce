@@ -14,7 +14,7 @@ export const Searchbar = ({ className }: Props) => {
       </div>
       <input
         type="text"
-        className="rounded-r focus:outline-none min-w-0 pr-4"
+        className="rounded-r focus:outline-none min-w-0 pr-4 border-none border-l border-gray-300"
         placeholder="Search a product..."
       />
     </div>
