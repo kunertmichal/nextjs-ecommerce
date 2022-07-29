@@ -7,7 +7,7 @@ import {
   GetProductListDocument,
 } from "../../../generated/graphql";
 import { ProductCard } from "../../../components/ProductCard";
-import { Pagination } from "../../../components/Pagination";
+// import { Pagination } from "../../../components/Pagination";
 import { Filters } from "../../../components/Filters";
 
 const PRODUCTS_PER_PAGE = 25;

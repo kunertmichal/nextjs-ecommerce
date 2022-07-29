@@ -23,7 +23,7 @@ const schema = yup
       .number()
       .required("This field is required")
       .typeError("Invalid CVC code"),
-    company: yup.string().required("This field is required"),
+    company: yup.string(),
     address: yup.string().required("This field is required"),
     addressContinuation: yup.string().required("This field is required"),
     city: yup.string().required("This field is required"),
