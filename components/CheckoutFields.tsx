@@ -1,123 +1,110 @@
-import { UseFormRegister } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
+import { CheckoutFormData } from "../pages/checkout";
+import { FormInput } from "./FormInput";
 
 interface Props {
-  register: UseFormRegister<{
-    email: string;
-    cardOwner: string;
-    cardNumber: string;
-    cardExpirationDate: string;
-    cardCvc: string;
-    company: string;
-    address: string;
-    addressContinuation: string;
-    city: string;
-    stateProvince: string;
-    postalCode: string;
-  }>;
+  methods: UseFormReturn<CheckoutFormData>;
 }
 
-export const CheckoutFields = ({ register }: Props) => {
+export const CheckoutFields = ({ methods }: Props) => {
+  const {
+    register,
+    formState: { errors },
+  } = methods;
+
   return (
     <div>
       <p className="text-xl font-semibold mb-8">Contact informaction</p>
-      <label className="uppercase font-bold text-xs mb-6 block">
-        Email address
-        <input
-          type="email"
-          autoComplete="email"
-          {...register("email", { required: true })}
-          className="block w-full border-gray-300 rounded"
-        />
-      </label>
+      <FormInput name="email" register={register} error={errors.email?.message}>
+        Email
+      </FormInput>
       <p className="text-xl font-semibold my-8">Payment details</p>
-      <label className="uppercase font-bold text-xs mb-6 block">
-        Name on card
-        <input
-          type="text"
-          autoComplete="cc-name"
-          {...register("cardOwner")}
-          className="block w-full border-gray-300 rounded"
-        />
-      </label>
-      <label className="uppercase font-bold text-xs mb-6 block">
+      <FormInput
+        name="cardOwner"
+        className="mb-8"
+        register={register}
+        error={errors.cardOwner?.message}
+      >
+        Card owner
+      </FormInput>
+      <FormInput
+        name="cardNumber"
+        type="number"
+        className="mb-8"
+        register={register}
+        error={errors.cardNumber?.message}
+      >
         Card number
-        <input
-          type="text"
-          autoComplete="cc-number"
-          {...register("cardNumber")}
-          className="block w-full border-gray-300 rounded"
-        />
-      </label>
+      </FormInput>
       <div className="block sm:grid grid-cols-3 gap-8">
-        <label className="uppercase font-bold text-xs mb-6 block col-span-2">
+        <FormInput
+          name="cardExpirationDate"
+          register={register}
+          className="col-span-2"
+          error={errors.cardExpirationDate?.message}
+        >
           Expiration date (MM/YY)
-          <input
-            type="text"
-            autoComplete="cc-exp"
-            {...register("cardExpirationDate")}
-            className="block w-full border-gray-300 rounded"
-          />
-        </label>
-        <label className="uppercase font-bold text-xs mb-6 block">
+        </FormInput>
+        <FormInput
+          name="cardCvc"
+          type="number"
+          register={register}
+          className="mb-8"
+          error={errors.cardCvc?.message}
+        >
           CVC
-          <input
-            type="text"
-            autoComplete="cc-csc"
-            {...register("cardCvc")}
-            className="block w-full border-gray-300 rounded"
-          />
-        </label>
+        </FormInput>
       </div>
       <p className="text-xl font-semibold my-8">Shipping address</p>
-      <label className="uppercase font-bold text-xs mb-6 block">
+      <FormInput
+        name="company"
+        register={register}
+        className="mb-8"
+        error={errors.company?.message}
+      >
         Company
-        <input
-          type="text"
-          {...register("company")}
-          className="block w-full border-gray-300 rounded"
-        />
-      </label>
-      <label className="uppercase font-bold text-xs mb-6 block">
+      </FormInput>
+      <FormInput
+        name="address"
+        register={register}
+        className="mb-8"
+        error={errors.address?.message}
+      >
         Address
-        <input
-          type="text"
-          {...register("address")}
-          className="block w-full border-gray-300 rounded"
-        />
-      </label>
-      <label className="uppercase font-bold text-xs mb-6 block">
+      </FormInput>
+      <FormInput
+        name="addressContinuation"
+        register={register}
+        className="mb-8"
+        error={errors.addressContinuation?.message}
+      >
         Apartment, suite, etc.
-        <input
-          type="text"
-          className="block w-full border-gray-300 rounded"
-          {...register("addressContinuation")}
-        />
-      </label>
+      </FormInput>
       <div className="block sm:grid grid-cols-3 gap-8">
-        <label className="uppercase font-bold text-xs mb-6 block">
+        <FormInput
+          name="city"
+          register={register}
+          className="mb-8"
+          error={errors.city?.message}
+        >
           City
-          <input
-            type="text"
-            className="block w-full border-gray-300 rounded"
-            {...register("city")}
-          />
-        </label>
-        <label className="uppercase font-bold text-xs mb-6 block">
-          State / Province
-          <input
-            type="text"
-            className="block w-full border-gray-300 rounded"
-            {...register("stateProvince")}
-          />
-        </label>
-        <label className="uppercase font-bold text-xs mb-6 block">
+        </FormInput>
+        <FormInput
+          name="stateProvince"
+          register={register}
+          className="mb-8"
+          error={errors.stateProvince?.message}
+        >
+          State or province
+        </FormInput>
+        <FormInput
+          name="postalCode"
+          register={register}
+          className="mb-8"
+          error={errors.postalCode?.message}
+        >
           Postal code
-          <input
-            type="text"
-            className="block w-full border-gray-300 rounded"
-            {...register("postalCode")}
-          />
-        </label>
+        </FormInput>
       </div>
     </div>
   );
